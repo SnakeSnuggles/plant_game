@@ -3,9 +3,11 @@
 #include <cstring>
 #include <iostream>
 #include <cmath>
+#include <algorithm>
 #include <string>
 #include <fstream>
 #include <sstream>
+#include <vector>
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
 
@@ -154,7 +156,7 @@ public:
     unsigned int ID;
     int width, height, nrChannels;
 
-    Texture(const char* path, bool alpha = false) {
+    Texture(const char* path="error.png", bool alpha = false) {
         glGenTextures(1, &ID);
         glBindTexture(GL_TEXTURE_2D, ID);
 
@@ -165,7 +167,7 @@ public:
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
         // Load image with stb_image
-        stbi_set_flip_vertically_on_load(true); // Flip to match OpenGL's texture coordinate system
+        stbi_set_flip_vertically_on_load(false); // Flip to match OpenGL's texture coordinate system
         unsigned char* data = stbi_load(path, &width, &height, &nrChannels, 0);
 
         if (data) {
@@ -198,6 +200,95 @@ public:
     }
 };
 
+
+class Texture_Manager {
+    public:
+        static int current_texture_id;
+
+        static int get() {
+            return current_texture_id++;
+        }
+};
+
+int Texture_Manager::current_texture_id = 0;
+
+
+class Sprite;
+
+class Sprite_Manager {
+    public: 
+        static std::vector<Sprite*> sprites;
+};
+
+std::vector<Sprite*> Sprite_Manager::sprites;
+
+class Sprite {
+public:
+    Shader shader{"shaders/vertex.vs", "shaders/fragment.fs"};
+    int texture_id;
+    Texture texture;
+    float vertices[48];  // Correctly store vertex data at the class level
+    VBO vbo;
+    VAO vao;
+    float x,y,z;
+    float width, height;
+
+    Sprite(const char* path, float width_i, float height_i, float xi, float yi, float zi) 
+        : texture_id(Texture_Manager::get()), 
+          texture(path, true),
+          vbo(vertices, sizeof(vertices), GL_DYNAMIC_DRAW),
+          vao(vbo) 
+
+    {
+        x = xi;
+        y = yi;
+        z = zi;
+        width = width_i;
+        height = height_i;
+
+        // Set proper vertex positions for a rectangle
+        float temp_vertices[48] = {
+            // First Triangle
+            x,          y,          z,   1.0f, 0.0f, 0.0f,   0.0f, 1.0f,  // Bottom-left
+            x + width,  y,          z,   0.0f, 1.0f, 0.0f,   1.0f, 1.0f,  // Bottom-right
+            x,          y + height, z,   0.0f, 0.0f, 1.0f,   0.0f, 0.0f,  // Top-left
+            
+            // Second Triangle
+            x,          y + height, z,   0.0f, 0.0f, 1.0f,   0.0f, 0.0f,  // Top-left
+            x + width,  y,          z,   1.0f, 1.0f, 0.0f,   1.0f, 1.0f,  // Bottom-right
+            x + width,  y + height, z,   1.0f, 0.0f, 0.0f,   1.0f, 0.0f   // Top-right
+        };
+
+        // Copy temp_vertices into the class member
+        std::copy(std::begin(temp_vertices), std::end(temp_vertices), std::begin(vertices));
+
+        // Now initialize VBO and VAO after setting vertices
+
+        Sprite_Manager::sprites.push_back(this);
+    }
+    void updateVBO() {
+        float temp_vertices[48] = {
+            x, y, z, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f,
+            x + width, y, z, 0.0f, 1.0f, 0.0f, 1.0f, 1.0f,
+            x, y + height, z, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f,
+            x, y + height, z, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f,
+            x + width, y, z, 1.0f, 1.0f, 0.0f, 1.0f, 1.0f,
+            x + width, y + height, z, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f
+        };
+        std::memcpy(vertices, temp_vertices, sizeof(temp_vertices));
+        glBindBuffer(GL_ARRAY_BUFFER, vbo);
+        glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(temp_vertices), vertices);
+    }
+
+    void draw() {
+        shader.use();
+        glActiveTexture(GL_TEXTURE0 + texture_id);
+        texture.bind();
+        shader.setInt("texturea", texture_id);
+        vao.draw();
+    }
+};
+
 int main() {
     glfwInit();
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
@@ -219,33 +310,25 @@ int main() {
         return -1;
     }
 
-    float vertices[] = {
-    // First triangle
-    0.5f,  0.5f, 0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 1.0f,
-    0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f,   1.0f, 0.0f,
-   -0.5f, -0.5f, 0.0f,   0.0f, 0.0f, 1.0f,   0.0f, 0.0f,
-
-    // Second triangle
-   -0.5f, -0.5f, 0.0f,   0.0f, 0.0f, 1.0f,   0.0f, 0.0f,
-   -0.5f,  0.5f, 0.0f,   1.0f, 1.0f, 0.0f,   0.0f, 1.0f,
-    0.5f,  0.5f, 0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 1.0f
-    };
-
-    Shader shader{"shaders/vertex.vs", "shaders/fragment.fs"};
-    VBO triangle{vertices, sizeof(vertices), GL_STATIC_DRAW};  
-    VAO rect{triangle};
-    Texture texture{"char.png", true};
+    Sprite sprite1{"char2.jpg", 0.5, 0.5, 0, 0, 0.1};
+    Sprite sprite2{"wall.jpg", 0.5, 0.5, 0, 0, 0.0};
 
     while (!glfwWindowShouldClose(window)) {
         processInput(window);
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
+    
+        float time = glfwGetTime();
+        std::sort(Sprite_Manager::sprites.begin(), Sprite_Manager::sprites.end(), [](Sprite* a, Sprite* b) {
+            return a->z < b->z;  // Lower z first
+        });
 
-        shader.use();
-        texture.bind();
-        shader.setInt("texture1", 0);  // Use texture unit 0
+        sprite1.x = sin(time);
 
-        rect.draw();  // Draw the full rectangle (6 vertices)
+        for(auto sprite : Sprite_Manager::sprites) {
+            sprite->draw();
+            sprite->updateVBO();
+        }
         glfwSwapBuffers(window);
         glfwPollEvents();
     }
