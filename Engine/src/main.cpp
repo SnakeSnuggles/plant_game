@@ -15,8 +15,8 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow *window);
 
 // Window size vars
-const unsigned int WIDTH = 800;
-const unsigned int HEIGHT = 600;
+unsigned int WIDTH = 800;
+unsigned int HEIGHT = 600;
 
 class VBO {
     public:
@@ -216,15 +216,14 @@ int Texture_Manager::current_texture_id = 0;
 class Sprite;
 
 class Sprite_Manager {
-    public: 
+    public:
         static std::vector<Sprite*> sprites;
+        static void draw();
 };
-
-std::vector<Sprite*> Sprite_Manager::sprites;
 
 class Sprite {
 public:
-    Shader shader{"shaders/vertex.vs", "shaders/fragment.fs"};
+    Shader shader{"shaders/sprite.vs", "shaders/sprite.fs"};
     int texture_id;
     Texture texture;
     float vertices[48];  // Correctly store vertex data at the class level
@@ -233,7 +232,7 @@ public:
     float x,y,z;
     float width, height;
 
-    Sprite(const char* path, float width_i, float height_i, float xi, float yi, float zi) 
+    Sprite(const char* path, float scale, float xi, float yi, float zi) 
         : texture_id(Texture_Manager::get()), 
           texture(path, true),
           vbo(vertices, sizeof(vertices), GL_DYNAMIC_DRAW),
@@ -243,8 +242,8 @@ public:
         x = xi;
         y = yi;
         z = zi;
-        width = width_i;
-        height = height_i;
+        width = (float)texture.width / WIDTH * scale;
+        height = (float)texture.height / HEIGHT * scale;
 
         // Set proper vertex positions for a rectangle
         float temp_vertices[48] = {
@@ -289,6 +288,19 @@ public:
     }
 };
 
+std::vector<Sprite*> Sprite_Manager::sprites;
+
+void Sprite_Manager::draw() {
+    std::sort(Sprite_Manager::sprites.begin(), Sprite_Manager::sprites.end(), [](Sprite* a, Sprite* b) {
+        return a->z < b->z;  // Lower z first
+    });
+
+    for(auto sprite : Sprite_Manager::sprites) {
+        sprite->draw();
+        sprite->updateVBO();
+    }
+}
+
 int main() {
     glfwInit();
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
@@ -310,25 +322,19 @@ int main() {
         return -1;
     }
 
-    Sprite sprite1{"char2.jpg", 0.5, 0.5, 0, 0, 0.1};
-    Sprite sprite2{"wall.jpg", 0.5, 0.5, 0, 0, 0.0};
-
+    Sprite sprite1{"char.png", 0.5, 0, 0, 0.1};
+    Sprite sprite2{"wall.jpg", 0.5, 0, 0, 0.0};
+    
     while (!glfwWindowShouldClose(window)) {
         processInput(window);
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
     
         float time = glfwGetTime();
-        std::sort(Sprite_Manager::sprites.begin(), Sprite_Manager::sprites.end(), [](Sprite* a, Sprite* b) {
-            return a->z < b->z;  // Lower z first
-        });
 
         sprite1.x = sin(time);
 
-        for(auto sprite : Sprite_Manager::sprites) {
-            sprite->draw();
-            sprite->updateVBO();
-        }
+        Sprite_Manager::draw();
         glfwSwapBuffers(window);
         glfwPollEvents();
     }
@@ -344,4 +350,6 @@ void processInput(GLFWwindow *window) {
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height) {
     glViewport(0, 0, width, height);
+    HEIGHT = height;
+    WIDTH = width;
 }
