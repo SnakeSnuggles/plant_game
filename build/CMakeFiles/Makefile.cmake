@@ -54,16 +54,17 @@ set(CMAKE_MAKEFILE_DEPENDS
   "C:/Program Files/CMake/share/cmake-3.31/Modules/Platform/WindowsPaths.cmake"
   "C:/Program Files/CMake/share/cmake-3.31/Modules/WriteBasicConfigVersionFile.cmake"
   "C:/Users/daves/Projects/plant_game/CMakeLists.txt"
+  "C:/Users/daves/Projects/plant_game/Engine/libs/glfw/CMake/cmake_uninstall.cmake.in"
+  "C:/Users/daves/Projects/plant_game/Engine/libs/glfw/CMake/glfw3.pc.in"
+  "C:/Users/daves/Projects/plant_game/Engine/libs/glfw/CMake/glfw3Config.cmake.in"
+  "C:/Users/daves/Projects/plant_game/Engine/libs/glfw/CMakeLists.txt"
+  "C:/Users/daves/Projects/plant_game/Engine/libs/glfw/docs/CMakeLists.txt"
+  "C:/Users/daves/Projects/plant_game/Engine/libs/glfw/src/CMakeLists.txt"
+  "C:/Users/daves/Projects/plant_game/Engine/libs/glm/CMakeLists.txt"
   "CMakeFiles/3.31.0-rc1/CMakeCCompiler.cmake"
   "CMakeFiles/3.31.0-rc1/CMakeCXXCompiler.cmake"
   "CMakeFiles/3.31.0-rc1/CMakeRCCompiler.cmake"
   "CMakeFiles/3.31.0-rc1/CMakeSystem.cmake"
-  "C:/Users/daves/Projects/plant_game/libs/glfw/CMake/cmake_uninstall.cmake.in"
-  "C:/Users/daves/Projects/plant_game/libs/glfw/CMake/glfw3.pc.in"
-  "C:/Users/daves/Projects/plant_game/libs/glfw/CMake/glfw3Config.cmake.in"
-  "C:/Users/daves/Projects/plant_game/libs/glfw/CMakeLists.txt"
-  "C:/Users/daves/Projects/plant_game/libs/glfw/docs/CMakeLists.txt"
-  "C:/Users/daves/Projects/plant_game/libs/glfw/src/CMakeLists.txt"
   )
 
 # The corresponding makefile is:
@@ -75,20 +76,21 @@ set(CMAKE_MAKEFILE_OUTPUTS
 # Byproducts of CMake generate step:
 set(CMAKE_MAKEFILE_PRODUCTS
   "CMakeFiles/CMakeDirectoryInformation.cmake"
-  "libs/glfw/src/glfw3Config.cmake"
-  "libs/glfw/src/glfw3ConfigVersion.cmake"
-  "libs/glfw/cmake_uninstall.cmake"
-  "libs/glfw/CMakeFiles/CMakeDirectoryInformation.cmake"
-  "libs/glfw/src/glfw3.pc"
-  "libs/glfw/src/CMakeFiles/CMakeDirectoryInformation.cmake"
-  "libs/glfw/docs/CMakeFiles/CMakeDirectoryInformation.cmake"
+  "Engine/libs/glfw/src/glfw3Config.cmake"
+  "Engine/libs/glfw/src/glfw3ConfigVersion.cmake"
+  "Engine/libs/glfw/cmake_uninstall.cmake"
+  "Engine/libs/glfw/CMakeFiles/CMakeDirectoryInformation.cmake"
+  "Engine/libs/glfw/src/glfw3.pc"
+  "Engine/libs/glfw/src/CMakeFiles/CMakeDirectoryInformation.cmake"
+  "Engine/libs/glfw/docs/CMakeFiles/CMakeDirectoryInformation.cmake"
+  "Engine/libs/glm/CMakeFiles/CMakeDirectoryInformation.cmake"
   )
 
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
   "CMakeFiles/glad.dir/DependInfo.cmake"
-  "CMakeFiles/Engine.dir/DependInfo.cmake"
-  "libs/glfw/CMakeFiles/uninstall.dir/DependInfo.cmake"
-  "libs/glfw/src/CMakeFiles/glfw.dir/DependInfo.cmake"
-  "libs/glfw/src/CMakeFiles/update_mappings.dir/DependInfo.cmake"
+  "CMakeFiles/Game.dir/DependInfo.cmake"
+  "Engine/libs/glfw/CMakeFiles/uninstall.dir/DependInfo.cmake"
+  "Engine/libs/glfw/src/CMakeFiles/glfw.dir/DependInfo.cmake"
+  "Engine/libs/glfw/src/CMakeFiles/update_mappings.dir/DependInfo.cmake"
   )

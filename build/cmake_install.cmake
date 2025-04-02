@@ -39,7 +39,8 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("C:/Users/daves/Projects/plant_game/build/libs/glfw/cmake_install.cmake")
+  include("C:/Users/daves/Projects/plant_game/build/Engine/libs/glfw/cmake_install.cmake")
+  include("C:/Users/daves/Projects/plant_game/build/Engine/libs/glm/cmake_install.cmake")
 
 endif()
 

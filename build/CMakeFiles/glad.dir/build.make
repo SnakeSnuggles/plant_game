@@ -71,29 +71,29 @@ include CMakeFiles/glad.dir/flags.make
 CMakeFiles/glad.dir/codegen:
 .PHONY : CMakeFiles/glad.dir/codegen
 
-CMakeFiles/glad.dir/libs/glad/src/glad.c.obj: CMakeFiles/glad.dir/flags.make
-CMakeFiles/glad.dir/libs/glad/src/glad.c.obj: CMakeFiles/glad.dir/includes_C.rsp
-CMakeFiles/glad.dir/libs/glad/src/glad.c.obj: C:/Users/daves/Projects/plant_game/libs/glad/src/glad.c
-CMakeFiles/glad.dir/libs/glad/src/glad.c.obj: CMakeFiles/glad.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\daves\Projects\plant_game\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/glad.dir/libs/glad/src/glad.c.obj"
-	C:\msys64\ucrt64\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/glad.dir/libs/glad/src/glad.c.obj -MF CMakeFiles\glad.dir\libs\glad\src\glad.c.obj.d -o CMakeFiles\glad.dir\libs\glad\src\glad.c.obj -c C:\Users\daves\Projects\plant_game\libs\glad\src\glad.c
+CMakeFiles/glad.dir/Engine/libs/glad/src/glad.c.obj: CMakeFiles/glad.dir/flags.make
+CMakeFiles/glad.dir/Engine/libs/glad/src/glad.c.obj: CMakeFiles/glad.dir/includes_C.rsp
+CMakeFiles/glad.dir/Engine/libs/glad/src/glad.c.obj: C:/Users/daves/Projects/plant_game/Engine/libs/glad/src/glad.c
+CMakeFiles/glad.dir/Engine/libs/glad/src/glad.c.obj: CMakeFiles/glad.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\daves\Projects\plant_game\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/glad.dir/Engine/libs/glad/src/glad.c.obj"
+	C:\msys64\ucrt64\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/glad.dir/Engine/libs/glad/src/glad.c.obj -MF CMakeFiles\glad.dir\Engine\libs\glad\src\glad.c.obj.d -o CMakeFiles\glad.dir\Engine\libs\glad\src\glad.c.obj -c C:\Users\daves\Projects\plant_game\Engine\libs\glad\src\glad.c
 
-CMakeFiles/glad.dir/libs/glad/src/glad.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/glad.dir/libs/glad/src/glad.c.i"
-	C:\msys64\ucrt64\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:\Users\daves\Projects\plant_game\libs\glad\src\glad.c > CMakeFiles\glad.dir\libs\glad\src\glad.c.i
+CMakeFiles/glad.dir/Engine/libs/glad/src/glad.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/glad.dir/Engine/libs/glad/src/glad.c.i"
+	C:\msys64\ucrt64\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:\Users\daves\Projects\plant_game\Engine\libs\glad\src\glad.c > CMakeFiles\glad.dir\Engine\libs\glad\src\glad.c.i
 
-CMakeFiles/glad.dir/libs/glad/src/glad.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/glad.dir/libs/glad/src/glad.c.s"
-	C:\msys64\ucrt64\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:\Users\daves\Projects\plant_game\libs\glad\src\glad.c -o CMakeFiles\glad.dir\libs\glad\src\glad.c.s
+CMakeFiles/glad.dir/Engine/libs/glad/src/glad.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/glad.dir/Engine/libs/glad/src/glad.c.s"
+	C:\msys64\ucrt64\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:\Users\daves\Projects\plant_game\Engine\libs\glad\src\glad.c -o CMakeFiles\glad.dir\Engine\libs\glad\src\glad.c.s
 
 # Object files for target glad
 glad_OBJECTS = \
-"CMakeFiles/glad.dir/libs/glad/src/glad.c.obj"
+"CMakeFiles/glad.dir/Engine/libs/glad/src/glad.c.obj"
 
 # External object files for target glad
 glad_EXTERNAL_OBJECTS =
 
-libglad.a: CMakeFiles/glad.dir/libs/glad/src/glad.c.obj
+libglad.a: CMakeFiles/glad.dir/Engine/libs/glad/src/glad.c.obj
 libglad.a: CMakeFiles/glad.dir/build.make
 libglad.a: CMakeFiles/glad.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=C:\Users\daves\Projects\plant_game\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking C static library libglad.a"

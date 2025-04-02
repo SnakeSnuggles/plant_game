@@ -174,17 +174,17 @@ glad/fast:
 .PHONY : glad/fast
 
 #=============================================================================
-# Target rules for targets named Engine
+# Target rules for targets named Game
 
 # Build rule for target.
-Engine: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 Engine
-.PHONY : Engine
+Game: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 Game
+.PHONY : Game
 
 # fast build rule for target.
-Engine/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\Engine.dir\build.make CMakeFiles/Engine.dir/build
-.PHONY : Engine/fast
+Game/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Game.dir\build.make CMakeFiles/Game.dir/build
+.PHONY : Game/fast
 
 #=============================================================================
 # Target rules for targets named uninstall
@@ -196,7 +196,7 @@ uninstall: cmake_check_build_system
 
 # fast build rule for target.
 uninstall/fast:
-	$(MAKE) $(MAKESILENT) -f libs\glfw\CMakeFiles\uninstall.dir\build.make libs/glfw/CMakeFiles/uninstall.dir/build
+	$(MAKE) $(MAKESILENT) -f Engine\libs\glfw\CMakeFiles\uninstall.dir\build.make Engine/libs/glfw/CMakeFiles/uninstall.dir/build
 .PHONY : uninstall/fast
 
 #=============================================================================
@@ -209,7 +209,7 @@ glfw: cmake_check_build_system
 
 # fast build rule for target.
 glfw/fast:
-	$(MAKE) $(MAKESILENT) -f libs\glfw\src\CMakeFiles\glfw.dir\build.make libs/glfw/src/CMakeFiles/glfw.dir/build
+	$(MAKE) $(MAKESILENT) -f Engine\libs\glfw\src\CMakeFiles\glfw.dir\build.make Engine/libs/glfw/src/CMakeFiles/glfw.dir/build
 .PHONY : glfw/fast
 
 #=============================================================================
@@ -222,56 +222,56 @@ update_mappings: cmake_check_build_system
 
 # fast build rule for target.
 update_mappings/fast:
-	$(MAKE) $(MAKESILENT) -f libs\glfw\src\CMakeFiles\update_mappings.dir\build.make libs/glfw/src/CMakeFiles/update_mappings.dir/build
+	$(MAKE) $(MAKESILENT) -f Engine\libs\glfw\src\CMakeFiles\update_mappings.dir\build.make Engine/libs/glfw/src/CMakeFiles/update_mappings.dir/build
 .PHONY : update_mappings/fast
 
-Src/main.obj: Src/main.cpp.obj
-.PHONY : Src/main.obj
+Engine/libs/glad/src/glad.obj: Engine/libs/glad/src/glad.c.obj
+.PHONY : Engine/libs/glad/src/glad.obj
 
 # target to build an object file
-Src/main.cpp.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\Engine.dir\build.make CMakeFiles/Engine.dir/Src/main.cpp.obj
-.PHONY : Src/main.cpp.obj
+Engine/libs/glad/src/glad.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\glad.dir\build.make CMakeFiles/glad.dir/Engine/libs/glad/src/glad.c.obj
+.PHONY : Engine/libs/glad/src/glad.c.obj
 
-Src/main.i: Src/main.cpp.i
-.PHONY : Src/main.i
+Engine/libs/glad/src/glad.i: Engine/libs/glad/src/glad.c.i
+.PHONY : Engine/libs/glad/src/glad.i
 
 # target to preprocess a source file
-Src/main.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\Engine.dir\build.make CMakeFiles/Engine.dir/Src/main.cpp.i
-.PHONY : Src/main.cpp.i
+Engine/libs/glad/src/glad.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\glad.dir\build.make CMakeFiles/glad.dir/Engine/libs/glad/src/glad.c.i
+.PHONY : Engine/libs/glad/src/glad.c.i
 
-Src/main.s: Src/main.cpp.s
-.PHONY : Src/main.s
+Engine/libs/glad/src/glad.s: Engine/libs/glad/src/glad.c.s
+.PHONY : Engine/libs/glad/src/glad.s
 
 # target to generate assembly for a file
-Src/main.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\Engine.dir\build.make CMakeFiles/Engine.dir/Src/main.cpp.s
-.PHONY : Src/main.cpp.s
+Engine/libs/glad/src/glad.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\glad.dir\build.make CMakeFiles/glad.dir/Engine/libs/glad/src/glad.c.s
+.PHONY : Engine/libs/glad/src/glad.c.s
 
-libs/glad/src/glad.obj: libs/glad/src/glad.c.obj
-.PHONY : libs/glad/src/glad.obj
+src/main.obj: src/main.cpp.obj
+.PHONY : src/main.obj
 
 # target to build an object file
-libs/glad/src/glad.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\glad.dir\build.make CMakeFiles/glad.dir/libs/glad/src/glad.c.obj
-.PHONY : libs/glad/src/glad.c.obj
+src/main.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Game.dir\build.make CMakeFiles/Game.dir/src/main.cpp.obj
+.PHONY : src/main.cpp.obj
 
-libs/glad/src/glad.i: libs/glad/src/glad.c.i
-.PHONY : libs/glad/src/glad.i
+src/main.i: src/main.cpp.i
+.PHONY : src/main.i
 
 # target to preprocess a source file
-libs/glad/src/glad.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\glad.dir\build.make CMakeFiles/glad.dir/libs/glad/src/glad.c.i
-.PHONY : libs/glad/src/glad.c.i
+src/main.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Game.dir\build.make CMakeFiles/Game.dir/src/main.cpp.i
+.PHONY : src/main.cpp.i
 
-libs/glad/src/glad.s: libs/glad/src/glad.c.s
-.PHONY : libs/glad/src/glad.s
+src/main.s: src/main.cpp.s
+.PHONY : src/main.s
 
 # target to generate assembly for a file
-libs/glad/src/glad.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\glad.dir\build.make CMakeFiles/glad.dir/libs/glad/src/glad.c.s
-.PHONY : libs/glad/src/glad.c.s
+src/main.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Game.dir\build.make CMakeFiles/Game.dir/src/main.cpp.s
+.PHONY : src/main.cpp.s
 
 # Help Target
 help:
@@ -287,15 +287,15 @@ help:
 	@echo ... rebuild_cache
 	@echo ... uninstall
 	@echo ... update_mappings
-	@echo ... Engine
+	@echo ... Game
 	@echo ... glad
 	@echo ... glfw
-	@echo ... Src/main.obj
-	@echo ... Src/main.i
-	@echo ... Src/main.s
-	@echo ... libs/glad/src/glad.obj
-	@echo ... libs/glad/src/glad.i
-	@echo ... libs/glad/src/glad.s
+	@echo ... Engine/libs/glad/src/glad.obj
+	@echo ... Engine/libs/glad/src/glad.i
+	@echo ... Engine/libs/glad/src/glad.s
+	@echo ... src/main.obj
+	@echo ... src/main.i
+	@echo ... src/main.s
 .PHONY : help
 
 
