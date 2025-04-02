@@ -1,5 +1,6 @@
-rmdir /s /q "build"
-mkdir build
+:: rmdir /s /q "build"
+:: mkdir build
+rmdir /s /q "build/assets/"
 robocopy "assets/" "build/assets/" /e /R:2 /W:1
 cd build
 

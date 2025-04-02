@@ -1,2 +1,2 @@
-#include <iostream>
-#include "main.cpp"
+#pragma once
+#include "engine.cpp"
