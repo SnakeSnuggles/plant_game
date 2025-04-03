@@ -1,5 +1,5 @@
 #include "vars.hpp"
-#include "Sprite.hpp"
+#include "render/Sprite.hpp"
 #include <iostream>
 #include <vector>
 #include <algorithm>
@@ -17,7 +17,7 @@ private:
     int width, height;
 
 public:
-    App() : window(nullptr), width(800), height(600) {
+    App(std::string window_name) : window(nullptr), width(800), height(600) {
         if (!glfwInit()) {
             std::cerr << "Failed to initialize GLFW" << std::endl;
             return;
@@ -27,7 +27,7 @@ public:
         glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
         glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-        window = glfwCreateWindow(width, height, "Plant Game", nullptr, nullptr);
+        window = glfwCreateWindow(width, height, window_name.c_str(), nullptr, nullptr);
         if (!window) {
             std::cerr << "Failed to create GLFW window" << std::endl;
             glfwTerminate();

@@ -9,6 +9,8 @@
 #include <fstream>
 #include <sstream>
 #include <vector>
+#include <functional>
+#include <memory>
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
 
