@@ -1,11 +1,15 @@
 #pragma once
 #include "render/Sprite.hpp"
 #include "ecs/ecs.hpp"
+#include "ecs/default_system.hpp"
 #include <iostream>
 #include <vector>
 #include <algorithm>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+#include <glm.hpp>
+#include <gtc/matrix_transform.hpp>
+#include <gtc/type_ptr.hpp>
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow* window);
@@ -47,20 +51,32 @@ public:
         glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
     }
 
+
     int run() {
         if (!window) return -1;
 
+        float last_time = glfwGetTime(); 
+        
         while (!glfwWindowShouldClose(window)) {
+            float current_time = glfwGetTime();
+            float delta_time = current_time - last_time;
+            last_time = current_time;
+
             processInput(window);
             glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
             glClear(GL_COLOR_BUFFER_BIT);
-            System_Manager::update();
+
+
+            System_Manager::update(delta_time);
             glfwSwapBuffers(window);
             glfwPollEvents();
         }
 
         glfwTerminate();
         return 0;
+    }
+    GLFWwindow* get_window() {
+        return window;
     }
 
     static void framebuffer_size_callback(GLFWwindow* window, int newWidth, int newHeight) {

@@ -12,14 +12,13 @@ public:
     float vertices[48];
     VBO vbo;
     VAO vao;
-    float x, y, z;
+    float x = 0.0f, y = 0.0f, z = 0.0f;
     float width, height;
 
-    Sprite(const char* path, float scale, float xi, float yi, float zi)
+    Sprite(const char* path, float scale)
         : texture(path, true),
-          vbo(nullptr, sizeof(vertices), GL_DYNAMIC_DRAW), // We'll fill vertices after init
-          vao(vbo),
-          x(xi), y(yi), z(zi)
+          vbo(nullptr, sizeof(vertices), GL_DYNAMIC_DRAW), 
+          vao(vbo)
     {
         width = static_cast<float>(texture.width) / WIDTH * scale;
         height = static_cast<float>(texture.height) / HEIGHT * scale;

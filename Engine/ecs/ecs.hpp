@@ -3,6 +3,7 @@
 #include <typeindex>
 #include <memory>
 #include <iostream>
+#include <functional>
 
 template<typename T>
 class Manager {
@@ -13,7 +14,6 @@ public:
         return current_id++;
     }
 
-    // Get a unique ID for a specific component type T
     template <typename U>
     static int get() {
         static int component_id = current_id++;
@@ -71,12 +71,23 @@ public:
     }
 };
 
+template <typename... Components>
+std::vector<std::shared_ptr<Entity>> get_all_with_component() {
+    std::vector<std::shared_ptr<Entity>> ent; 
+
+    for (auto& entity : Entity::Entities) {
+        if ((entity->has_component<Components>() && ...)) {
+            ent.push_back(entity);
+        }
+    }
+    return ent;
+}
 // Initialize the static member of Entity
 std::vector<std::shared_ptr<Entity>> Entity::Entities;
 
 class System {
 public:
-    virtual void update() = 0;
+    virtual void update(float delta_time) = 0;
     virtual ~System() = default;
 };
 
@@ -89,14 +100,12 @@ public:
         systems.push_back(system);
     }
 
-    static void update() {
+    static void update(float delta_time) {
         for (auto& sys : systems) {
-            sys->update();
+            sys->update(delta_time);
         }
     }
 };
 
 // Initialize the static member of System_Manager
 std::vector<std::shared_ptr<System>> System_Manager::systems = {};
-
-class Component {};
