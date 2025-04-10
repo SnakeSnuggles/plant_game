@@ -4,7 +4,13 @@
 #include "VBO.hpp"
 #include "VAO.hpp"
 #include "../vars.hpp"
+#include "trigonometric.hpp"
+#include <glm.hpp>
+#include <gtc/matrix_transform.hpp>
+#include <gtc/type_ptr.hpp>
 
+#define GLM_ENABLE_EXPERIMENTAL
+#include <gtx/string_cast.hpp>
 class Sprite {
 public:
     Shader shader{"shaders/sprite.vs", "shaders/sprite.fs"};
@@ -13,6 +19,7 @@ public:
     VBO vbo;
     VAO vao;
     float x = 0.0f, y = 0.0f, z = 0.0f;
+    glm::vec3 rotation{0,0,0};
     float width, height;
 
     Sprite(const char* path, float scale)
@@ -23,7 +30,9 @@ public:
         width = static_cast<float>(texture.width) / WIDTH * scale;
         height = static_cast<float>(texture.height) / HEIGHT * scale;
         init_geometry();
+        set_rotation(rotation);
     }
+
 
     void init_geometry() {
         float temp_vertices[48] = {
@@ -57,4 +66,24 @@ public:
         vbo.bind();
         glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vertices), vertices);
     }
+    void set_rotation(glm::vec3 rotation) {
+        
+        this->rotation = rotation;
+    }
+    void retateions() {
+
+        glm::vec3 radians = glm::radians(rotation);
+        
+        glm::mat4 transform = glm::mat4(1.0f);
+
+        transform = glm::rotate(transform, radians.x, glm::vec3(1, 0, 0));  // X axis
+        transform = glm::rotate(transform, radians.y, glm::vec3(0, 1, 0));  // Y axis
+        transform = glm::rotate(transform, radians.z, glm::vec3(0, 0, 1));  // Z axis
+        glm::mat4 projection = glm::ortho(0.0f, (float)WIDTH, (float)HEIGHT, 0.0f, -1.0f, 1.0f); 
+        shader.setMat4("transforma", transform);
+        // shader.setMat4("projection", projection);
+        // std::cout << "Projection Matrix: " << glm::to_string(projection) << std::endl;
+        std::cout << "Transform Matrix: " << glm::to_string(transform) << std::endl;
+    }
+
 };

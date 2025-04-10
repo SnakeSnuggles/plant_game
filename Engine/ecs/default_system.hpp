@@ -22,12 +22,17 @@ public:
         });
 
         for (auto sprite : sorted_sprites) {
-            sprite->shader.use();  
-            glActiveTexture(GL_TEXTURE0 + sprite->texture.ID);  
+            sprite->shader.use();
+        
+            glm::mat4 projection = glm::ortho(0.0f, (float)WIDTH, 0.0f, (float)HEIGHT, -1.0f, 1.0f);
+        
+            glActiveTexture(GL_TEXTURE0); 
             sprite->texture.bind();
-            sprite->shader.setInt("texturea", sprite->texture.ID); 
-
+            sprite->shader.setInt("texturea", 0);
+            
+            sprite->retateions();
             sprite->vao.draw();
+
         }
     }
 };

@@ -1,6 +1,5 @@
 #include "../Engine/engine.hpp"
 
-
 struct Position {
     float x, y, z;
 };
@@ -65,24 +64,46 @@ class delta : public System {
     public:
         void update(float delta_time) override {
 //            std::cout << delta_time << "\n";
+            glfwGetTime();
         }
 };
 
+class time_rotate : public System {
+    private:
+        std::shared_ptr<Entity> entity_;
+        bool done = false;
+    public:
+        time_rotate(std::shared_ptr<Entity> ent): entity_(ent) {}
+        void update(float delta_time) override {
+            if(done) {}
+                //return;
+
+            float time = glfwGetTime();
+
+            entity_->get_component<Sprite>().set_rotation(glm::vec3(0,time * 200,0));
+            std::cout << "time: " << time << "\n";
+            done = true;
+        }
+};
 
 int main() {
     App game{"plant game"};
     
-    auto player = Entity::create();
     auto fellow2 = Entity::create();
+    auto player = Entity::create();
     
     // Create Sprite and add it as a component to the entity
-    Sprite sprite1{"char.png", 0.5f};
-    player->add_component(sprite1);
-    player->add_component(Position{0.5,0.0,0.1});
-    player->add_component(Speed{1.0f});
+
 
     Sprite sprite2{"wall.jpg", 0.5f};
+    Sprite sprite1{"char.png", 0.5f};
+
+    player->add_component(sprite1);
+    player->add_component(Position{0.5,0.0,0.0});
+    player->add_component(Speed{1.0f});
+
     fellow2->add_component(sprite2);
+    fellow2->add_component(Position{0.5,0.0,0.0});
 
     // Check if the entity has a Sprite component
 
@@ -91,6 +112,7 @@ int main() {
     System_Manager::add_system(std::make_shared<RenderSystem>());
     System_Manager::add_system(std::make_shared<player_inputs>(game.get_window(), player));
     System_Manager::add_system(std::make_shared<delta>());
+    System_Manager::add_system(std::make_shared<time_rotate>(player));
     
     // Run the game
     game.run();
